@@ -86,7 +86,6 @@ def generate_and_send():
         )
 
         generated_text = intro.choices[0].text
-        print(generated_text)
 
         mail += generated_text
         mail += "\n\nComme toutes les semaines, tu reçois ci-dessous le Top 3 des articles dont on parle le plus dans le domaine de l'homéopathie en ce moment. N'hésite pas à nous faire des retours."
@@ -199,7 +198,6 @@ def generate_and_send():
         )
 
         generated_text = response.choices[0].text
-        print(generated_text)
 
         mail += generated_text
         mail += "\n\nBien à toi et à la semaine prochaine !\n\nDr MDG, GA et VR"
@@ -207,15 +205,13 @@ def generate_and_send():
         
         mail = "<html><head></head><body><p>" + mail.replace("\n", "</p><p>") + "</p></body></html>"
 
-        print(mail)
-
         service = build('gmail', 'v1', credentials=creds)
                     
         message = MIMEMultipart('alternative')
         message['to'] = f'{os.getenv("RECIPIENTS")}'
         message['bcc'] = f'{os.getenv("CCIRECIPIENTS")}'
         #message['to'] = os.getenv("RECIPIENT1")
-        message['subject'] = f'Reminder Spectacles - {str(today)}'
+        message['subject'] = f'Les News Homéo de l\'Info du Chauve - {str(today)}'
         part1 = MIMEText(mail, 'html')
         #part2 = MIMEText(mail, 'html')
         message.attach(part1)
